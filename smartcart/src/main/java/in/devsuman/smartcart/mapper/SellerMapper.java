@@ -10,36 +10,33 @@ public class SellerMapper {
 
     public Seller toEntity(SellerRequestDTO dto) {
 
-        Seller seller = new Seller();
-
-        seller.setName(dto.getName());
-        seller.setEmail(dto.getEmail());
-        seller.setPassword(dto.getPassword());
-        seller.setCompanyName(dto.getCompanyName());
-        seller.setPhoneNumber(dto.getPhoneNumber());
-        seller.setStreetAddress(dto.getStreetAddress());
-        seller.setCity(dto.getCity());
-        seller.setState(dto.getState());
-        seller.setPostalCode(dto.getPostalCode());
-        seller.setCountry(dto.getCountry());
-
-        return seller;
+        return new Seller(
+                dto.getId(),
+                dto.getName(),
+                dto.getEmail(),
+                dto.getPassword(),
+                dto.getCompanyName(),
+                dto.getPhoneNumber(),
+                dto.getStreetAddress(),
+                dto.getCity(),
+                dto.getState(),
+                dto.getPostalCode(),
+                dto.getCountry()
+        );
     }
 
-    public SellerResponseDTO toResponseDTO(Seller seller) {
-        SellerResponseDTO dto = new SellerResponseDTO();
-
-        dto.setId(seller.getId());
-        dto.setName(seller.getName());
-        dto.setEmail(seller.getEmail());
-        dto.setCompanyName(seller.getCompanyName());
-        dto.setPhoneNumber(seller.getPhoneNumber());
-        dto.setStreetAddress(seller.getStreetAddress());
-        dto.setCity(seller.getCity());
-        dto.setState(seller.getState());
-        dto.setPostalCode(seller.getPostalCode());
-        dto.setCountry(seller.getCountry());
-
-        return dto;
+    public SellerResponseDTO toDTO(Seller seller) {
+        return new SellerResponseDTO(
+                seller.getId(),
+                seller.getName(),
+                seller.getEmail(),
+                seller.getCompanyName(),
+                seller.getPhoneNumber(),
+                seller.getStreetAddress(),
+                seller.getCity(),
+                seller.getState(),
+                seller.getPostalCode(),
+                seller.getCountry()
+        );
     }
 }

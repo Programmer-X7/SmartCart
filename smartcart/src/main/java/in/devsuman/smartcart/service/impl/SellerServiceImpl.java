@@ -2,8 +2,10 @@ package in.devsuman.smartcart.service.impl;
 
 import in.devsuman.smartcart.dto.SellerRequestDTO;
 import in.devsuman.smartcart.dto.SellerResponseDTO;
+import in.devsuman.smartcart.entity.Product;
 import in.devsuman.smartcart.entity.Seller;
 import in.devsuman.smartcart.mapper.SellerMapper;
+import in.devsuman.smartcart.repository.ProductRepository;
 import in.devsuman.smartcart.repository.SellerRepository;
 import in.devsuman.smartcart.service.SellerService;
 import in.devsuman.smartcart.utils.PasswordHashingUtil;
@@ -11,11 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 public class SellerServiceImpl implements SellerService {
 
     private final SellerRepository sellerRepository;
+    private final ProductRepository productRepository;
     private final PasswordHashingUtil passwordHashingUtil;
     private final SellerMapper sellerMapper;
 
@@ -23,8 +29,10 @@ public class SellerServiceImpl implements SellerService {
     public SellerServiceImpl(
             SellerRepository sellerRepository,
             PasswordHashingUtil passwordHashingUtil,
-            SellerMapper sellerMapper) {
+            SellerMapper sellerMapper,
+            ProductRepository productRepository) {
         this.sellerRepository = sellerRepository;
+        this.productRepository = productRepository;
         this.passwordHashingUtil = passwordHashingUtil;
         this.sellerMapper = sellerMapper;
     }
@@ -44,9 +52,19 @@ public class SellerServiceImpl implements SellerService {
         Seller savedSeller = sellerRepository.save(seller);
 
         // Convert & Return: Seller -> SellerResponseDTO
-        return sellerMapper.toResponseDTO(savedSeller);
+        return sellerMapper.toDTO(savedSeller);
     }
 
+    // Get All Sellers - (Admin)
+    @Override
+    public List<SellerResponseDTO> getAllSellers() {
+        List<Seller> sellers = sellerRepository.findAll();
+        return sellers.stream()
+                .map(sellerMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    // Get details of a particular seller
     @Override
     public SellerResponseDTO getSellerById(Long id) {
 
@@ -54,7 +72,7 @@ public class SellerServiceImpl implements SellerService {
         Seller seller = sellerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Seller not found with id: " + id));
 
-        return sellerMapper.toResponseDTO(seller);
+        return sellerMapper.toDTO(seller);
     }
 
     // Seller Details Update
@@ -103,6 +121,22 @@ public class SellerServiceImpl implements SellerService {
 
         Seller updatedSeller = sellerRepository.save(existingSeller);
 
-        return sellerMapper.toResponseDTO(updatedSeller);
+        return sellerMapper.toDTO(updatedSeller);
     }
+
+    // Delete a seller - (Admin)
+    @Override
+    public void deleteSeller(Long id) {
+        Seller seller = sellerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Seller not found with id: " + id));
+
+        // Delete all products associated with the seller
+        List<Product> products = productRepository.findBySoldById(seller);
+        if(!products.isEmpty()) {
+            productRepository.deleteAll(products);
+        }
+
+        sellerRepository.delete(seller);
+    }
+
 }

@@ -12,7 +12,7 @@
 	<artifactId>smartcart</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>smartcart</name>
-	<description>A Spring Boot backend for SmartCart - A multivendor  E-Commerce store</description>
+	<description>A Spring Boot backend for SmartCart - A multi-vendor  E-Commerce store</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -44,6 +44,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.hateoas</groupId>-->
+<!--			<artifactId>spring-hateoas</artifactId>-->
+<!--			<version>2.3.0</version>-->
+<!--		</dependency>-->
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
