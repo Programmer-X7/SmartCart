@@ -10,12 +10,13 @@ public class SellerMapper {
 
     public Seller toEntity(SellerRequestDTO dto) {
 
+        // Ordering Matters
         return new Seller(
                 dto.getId(),
                 dto.getName(),
+                dto.getCompanyName(),
                 dto.getEmail(),
                 dto.getPassword(),
-                dto.getCompanyName(),
                 dto.getPhoneNumber(),
                 dto.getStreetAddress(),
                 dto.getCity(),
@@ -29,8 +30,8 @@ public class SellerMapper {
         return new SellerResponseDTO(
                 seller.getId(),
                 seller.getName(),
-                seller.getEmail(),
                 seller.getCompanyName(),
+                seller.getEmail(),
                 seller.getPhoneNumber(),
                 seller.getStreetAddress(),
                 seller.getCity(),
