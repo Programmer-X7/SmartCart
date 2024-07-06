@@ -10,34 +10,37 @@ public class SellerMapper {
 
     public Seller toEntity(SellerRequestDTO dto) {
 
-        // Ordering Matters
-        return new Seller(
-                dto.getId(),
-                dto.getName(),
-                dto.getCompanyName(),
-                dto.getEmail(),
-                dto.getPassword(),
-                dto.getPhoneNumber(),
-                dto.getStreetAddress(),
-                dto.getCity(),
-                dto.getState(),
-                dto.getPostalCode(),
-                dto.getCountry()
-        );
+        Seller seller = new Seller();
+
+        seller.setId(dto.getId());
+        seller.setName(dto.getName());
+        seller.setCompanyName(dto.getCompanyName());
+        seller.setPhoneNumber(dto.getPhoneNumber());
+        seller.setPassword(dto.getPassword());
+        seller.setEmail(dto.getEmail());
+        seller.setStreetAddress(dto.getStreetAddress());
+        seller.setCity(dto.getCity());
+        seller.setState(dto.getState());
+        seller.setPostalCode(dto.getPostalCode());
+        seller.setCountry(dto.getCountry());
+
+        return seller;
     }
 
     public SellerResponseDTO toDTO(Seller seller) {
-        return new SellerResponseDTO(
-                seller.getId(),
-                seller.getName(),
-                seller.getCompanyName(),
-                seller.getEmail(),
-                seller.getPhoneNumber(),
-                seller.getStreetAddress(),
-                seller.getCity(),
-                seller.getState(),
-                seller.getPostalCode(),
-                seller.getCountry()
-        );
+        SellerResponseDTO sellerResponseDTO = new SellerResponseDTO();
+
+        sellerResponseDTO.setId(seller.getId());
+        sellerResponseDTO.setName(seller.getName());
+        sellerResponseDTO.setCompanyName(seller.getCompanyName());
+        sellerResponseDTO.setPhoneNumber(seller.getPhoneNumber());
+        sellerResponseDTO.setEmail(seller.getEmail());
+        sellerResponseDTO.setStreetAddress(seller.getStreetAddress());
+        sellerResponseDTO.setCity(seller.getCity());
+        sellerResponseDTO.setState(seller.getState());
+        sellerResponseDTO.setPostalCode(seller.getPostalCode());
+        sellerResponseDTO.setCountry(seller.getCountry());
+
+        return sellerResponseDTO;
     }
 }

@@ -22,14 +22,14 @@ public class Seller {
     @Column(name = "company_name", nullable = false)
     private String companyName;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "phone_number", unique = true, nullable = false)
+    private String phoneNumber;
 
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "phone_number", nullable = false)
-    private String phoneNumber;
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "street_address", nullable = false)
     private String streetAddress;

@@ -3,6 +3,7 @@ package in.devsuman.smartcart.controller;
 import in.devsuman.smartcart.dto.SellerRequestDTO;
 import in.devsuman.smartcart.dto.SellerResponseDTO;
 import in.devsuman.smartcart.service.SellerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/sellers")
+@Slf4j
 public class SellerController {
 
     private final SellerService sellerService;
@@ -25,6 +27,7 @@ public class SellerController {
     // Create Seller
     @PostMapping
     public ResponseEntity<SellerResponseDTO> createSeller(@RequestBody SellerRequestDTO sellerRequestDTO) {
+        log.info("Seller Req DTO from frontend: {}", sellerRequestDTO);
         SellerResponseDTO createdSeller = sellerService.createSeller(sellerRequestDTO);
         return new ResponseEntity<>(createdSeller, HttpStatus.CREATED);
     }
